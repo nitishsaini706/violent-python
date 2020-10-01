@@ -1,6 +1,7 @@
 
 import ftplib
 import argparse
+# program to brute force the host 
 
 def brute(host):
     pf=[ 'user:pass','msfadmin:msfadmin','root:toor','root:9878']
