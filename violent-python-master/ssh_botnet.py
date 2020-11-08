@@ -7,18 +7,18 @@ import socket
 Prompt=['#','\$','>>>','>']
 
 def connect(user,host,password):
-    ssh_key='Are you sure you want to continue coonecting '
+    ssh_key='Sure about continuing connection? '
     con='ssh\t'+user+'@'+host
     child=pexpect.spawn(con)
     ret=child.expect([pexpect.TIMEOUT,ssh_key,'[P|p]ssword :'])
     if ret==0:
-        print('timeout ,error connecting ')
+        print('TIMEOUT!!')
         return 
     if ret==1:
         child.sendline('yes')
         ret-child.expect([pexpect.TIMEOUT,'[P|p]password:'])
         if ret==0:
-             print('error connecting ')
+             print('CONNECTION ERROR')
     child.sendline(password)
     child.expect(Prompt)
     return child
@@ -32,8 +32,8 @@ def command(child):
 
 def main():
     parser=argparse.ArgumentParser()
-    parser.add_argument('-H','--host',dest='host',action='store',help='specify the host name ')
-    parser.add_argument('-p','--password',dest='password',action='store',help='specify the password')
+    parser.add_argument('-H','--host',dest='host',action='store',help='Enter host name ')
+    parser.add_argument('-p','--password',dest='password',action='store',help='Enter password')
     parser.add_argument('-u','--user',dest='user',action='store',help='specify the user')
    # parser.add_argument('-c','--command',dest='cmd',action='store',help='specify the command')
     args=parser.parse_args()
